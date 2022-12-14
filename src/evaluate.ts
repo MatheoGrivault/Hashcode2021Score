@@ -30,8 +30,8 @@ export default function evaluate(input: Input, output: Output): {score: number, 
                 }else{
                     //Try to make the car cross the intersection
                     if(!street.nextCarsCrossing.includes(car)) street.nextCarsCrossing.push(car)
-
-                    //Check if the traffic light is green and that no one already crossed the intersection during this step
+                    
+                    //Check if the traffic light is green, if the car is first in the queue and that no one already crossed the intersection during this step
                     if(output[street.endIntersectionId]
                     && output[street.endIntersectionId].isStreetOnGreen(car.currentStreet, t)
                     && !alreadyPassedIntersections.includes(street.endIntersectionId)
