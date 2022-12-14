@@ -8,7 +8,7 @@ const evaluate_1 = __importDefault(require("./evaluate"));
 const fs_1 = __importDefault(require("fs"));
 const process_1 = require("process");
 if (process.argv.length < 4) {
-    console.error("Usage: node tester.js <inputFileOrDir> <outputFileOrDir>");
+    console.error("Usage: node calculate.js <inputFileOrDir> <outputFileOrDir>");
     (0, process_1.exit)();
 }
 if (fs_1.default.statSync(process.argv[2]).isDirectory() && fs_1.default.statSync(process.argv[3]).isDirectory()) {

@@ -4,7 +4,7 @@ import fs from "fs"
 import { exit } from "process";
 
 if(process.argv.length < 4){
-    console.error("Usage: node tester.js <inputFileOrDir> <outputFileOrDir>")
+    console.error("Usage: node calculate.js <inputFileOrDir> <outputFileOrDir>")
     exit()
 }
 
