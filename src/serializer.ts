@@ -1,6 +1,4 @@
 import fs from "fs"
-import Street from "./street"
-import Car from "./car"
 import Intersection from "./intersection"
 import type { Input, Output } from "./types"
 
@@ -20,7 +18,11 @@ export function deserializeInput(file: string): Input {
     for(let i=0; i<nStreets; i++){
         const [startIntersectionId, endIntersectionId, streetName, timeToCross] = data[0].split(" ")
     
-        input.streets[streetName] = new Street(parseInt(endIntersectionId), parseInt(timeToCross))
+        input.streets[streetName] = {
+            endIntersectionId: parseInt(endIntersectionId),
+            timeToCross: parseInt(timeToCross),
+            nextCarsCrossing: []
+        }
     
         data.shift()
     }
@@ -29,7 +31,12 @@ export function deserializeInput(file: string): Input {
         const path = data[0].split(" ")
         path.shift()
     
-        input.cars.push(new Car(path))
+        input.cars.push({
+            path: path,
+            remainingTimeToCross: 0,
+            currentStreet: "",
+            hasFinished: false
+        })
     
         data.shift()
     }

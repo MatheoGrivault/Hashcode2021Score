@@ -5,8 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deserializeOutput = exports.deserializeInput = void 0;
 const fs_1 = __importDefault(require("fs"));
-const street_1 = __importDefault(require("./street"));
-const car_1 = __importDefault(require("./car"));
 const intersection_1 = __importDefault(require("./intersection"));
 function deserializeInput(file) {
     const data = fs_1.default.readFileSync(file, "utf8").split("\n");
@@ -20,13 +18,22 @@ function deserializeInput(file) {
     };
     for (let i = 0; i < nStreets; i++) {
         const [startIntersectionId, endIntersectionId, streetName, timeToCross] = data[0].split(" ");
-        input.streets[streetName] = new street_1.default(parseInt(endIntersectionId), parseInt(timeToCross));
+        input.streets[streetName] = {
+            endIntersectionId: parseInt(endIntersectionId),
+            timeToCross: parseInt(timeToCross),
+            nextCarsCrossing: []
+        };
         data.shift();
     }
     for (let i = 0; i < nCars; i++) {
         const path = data[0].split(" ");
         path.shift();
-        input.cars.push(new car_1.default(path));
+        input.cars.push({
+            path: path,
+            remainingTimeToCross: 0,
+            currentStreet: "",
+            hasFinished: false
+        });
         data.shift();
     }
     return input;
